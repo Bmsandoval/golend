@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  app:
+    image: lambci/lambda-base
+    links:
+      - db
+    depends_on:
+      - db
+    env_file:
+      - lendr.env
+    ports:
+      - '8080:8080'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./build/main:/main
+    entrypoint:
+      - /main
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 1
