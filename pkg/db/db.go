@@ -8,7 +8,7 @@ var DB *gorm.DB
 
 func Open(username string, password string, hostname string, database string) error {
 	var err error
-	DB, err = gorm.Open("mysql", username+":"+password+"@tcp("+hostname+")/"+database)
+	DB, err = gorm.Open("mysql", username+":"+password+"@tcp("+hostname+")/"+database+"?parseTime=true")
 	return err
 }
 
