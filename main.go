@@ -1,8 +1,8 @@
 package main
 
 import (
-	"lendr/internal/routes"
-	"lendr/pkg/db"
+	"golend/internal/routes"
+	"golend/pkg/db"
 	"log"
 	"net/http"
 	"os"

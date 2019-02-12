@@ -2,11 +2,11 @@ package lender
 
 import (
 	"github.com/jinzhu/gorm"
-	"lendr/internal/models/grouper"
-	"lendr/pkg/db"
+	"golend/internal/models/grouper"
+	"golend/pkg/db"
 	"log"
 
-	_ "github.com/kr/pretty"
+	//_ "github.com/kr/pretty"
 )
 
 type Lender struct {

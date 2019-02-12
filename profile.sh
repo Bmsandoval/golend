@@ -1,5 +1,5 @@
 #!/bin/bash
-[ -f lendr.env ] || cp app/lendr.env.ex app/lendr.env
+[ -f lendr.env ] || cp lendr.env.ex lendr.env
 set -a
 source lendr.env
 set +a
@@ -25,6 +25,10 @@ lendr-bundle () {
   #mkdir -p build/internal/views
   #rsync -avhP --stats --progress internal/views/ build/internal/views/
   lendr-compile
+}
+
+lendr-save-dependencies () {
+    godep save
 }
 
 lendr-clear-cache () {

@@ -7,7 +7,7 @@ import (
 	"net/http"
 	"os"
 
-	"lendr/internal/models/lender"
+	"golend/internal/models/lender"
 )
 
 func CollectAuthTokens(_ http.ResponseWriter, r *http.Request) {

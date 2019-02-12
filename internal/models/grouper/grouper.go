@@ -2,7 +2,7 @@ package grouper
 
 import (
 	"github.com/jinzhu/gorm"
-	"lendr/internal/models/lendable"
+	"golend/internal/models/lendable"
 )
 
 type Grouper struct {

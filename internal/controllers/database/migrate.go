@@ -1,14 +1,14 @@
 package database
 
 import (
-	"lendr/internal/models/grouper"
-	"lendr/internal/models/lender"
-	"lendr/pkg/db"
+	"golend/internal/models/grouper"
+	"golend/internal/models/lender"
+	"golend/pkg/db"
 	"net/http"
 
-	_ "github.com/go-sql-driver/mysql"
+	//_ "github.com/go-sql-driver/mysql"
 
-	"lendr/internal/models/lendable"
+	"golend/internal/models/lendable"
 )
 
 func Migrate(_ http.ResponseWriter, _ *http.Request) {

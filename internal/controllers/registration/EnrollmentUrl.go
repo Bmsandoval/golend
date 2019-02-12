@@ -2,7 +2,7 @@ package registration
 
 import (
 	"crypto/rand"
-	"lendr/internal/models/lender"
+	"golend/internal/models/lender"
 	"log"
 	"net/http"
 	"os"

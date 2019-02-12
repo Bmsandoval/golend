@@ -3,8 +3,8 @@ package lenders
 import (
 	"fmt"
 	"github.com/gorilla/mux"
-	"lendr/internal/models/lender"
-	"lendr/pkg/db"
+	"golend/internal/models/lender"
+	"golend/pkg/db"
 	"net/http"
 )
 

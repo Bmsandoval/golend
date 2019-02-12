@@ -2,8 +2,8 @@ package manage
 
 import (
 	"github.com/nlopes/slack"
-	"lendr/internal/models/lender"
-	"lendr/pkg/slkr"
+	"golend/internal/models/lender"
+	"golend/pkg/slkr"
 	"log"
 	"net/http"
 )
