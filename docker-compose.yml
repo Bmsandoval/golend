@@ -18,6 +18,8 @@ services:
       - /main
   db:
     image: mysql:5.7
+    env_file:
+      - lendr.env
     ports:
       - '3306:3306'
     restart: always

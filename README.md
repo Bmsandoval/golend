@@ -3,4 +3,5 @@ cool go-based slack bot hosted via aws lambda. Maintains a digital accounting of
 
 # Next up...
 Need to setup a cloudformation so I can pull push this up to AWS
+Consider Postgresql for Distinct On function which will allow left join on first found
 

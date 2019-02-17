@@ -2,7 +2,8 @@ package routes
 
 import (
 	"encoding/json"
-	"fmt"
+	"strings"
+
 	//"fmt"
 	"github.com/gorilla/mux"
 	"github.com/nlopes/slack"
@@ -84,12 +85,10 @@ func interactivity(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 		return
 	}
-	fmt.Println(requestValues.CallbackID)
-	//***************************************************************
-	//***************************************************************
-	// TODO - successfully getting callback ID, now handle the interaction!!!!!
-	//***************************************************************
-	//***************************************************************
+
+	if strings.HasPrefix(requestValues.CallbackID, "manage.") {
+		manage.CallbackHandler(requestValues, w, r)
+	}
 }
 func dynamicMenus(w http.ResponseWriter, r *http.Request) {
 	s, err := slack.SlashCommandParse(r)

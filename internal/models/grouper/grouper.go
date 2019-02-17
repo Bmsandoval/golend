@@ -1,12 +1,10 @@
 package grouper
 
 import (
+	//_ "github.com/lib/pq" // TODO : consider postgres for "DISTINCT ON"
+	_ "github.com/go-sql-driver/mysql" // must be included with gorm
 	"github.com/jinzhu/gorm"
-<<<<<<< HEAD
 	"golend/internal/models/lendable"
-=======
-	"lendr/internal/models/lendable"
->>>>>>> 055efae1be042cd5ac2cc6e396bc45da4afe753e
 )
 
 type Grouper struct {
@@ -15,4 +13,6 @@ type Grouper struct {
 	LenderId  uint `gorm:"index"`
 	Access     string
 	Lendables []lendable.Lendable
+	TotalLendables uint
+	AvailableLendables uint
 }

@@ -32,7 +32,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	slkr.Initialize(slackBotToken)
 	result, err := slkr.Api.PostEphemeral(s.ChannelID, s.UserID, slack.MsgOptionAttachments(
 		slack.Attachment{
-			CallbackID: "manage.main_selection",
+			CallbackID: "manage."+baseActionSelectCallback,
 			Actions: []slack.AttachmentAction{
 				{
 					Name: "create_action",
@@ -50,10 +50,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 		}))
 
 	_ = result
-
-
-
-
+	return
 
 
 	//t, err := template.New("test").Parse(view.ManageBaseForm)

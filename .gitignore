@@ -1,5 +1,6 @@
 build
 .atomenv.json
+.idea
 lendr.env
 ngrok
 vendor/
