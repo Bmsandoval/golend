@@ -1,11 +1,12 @@
 package manage
 
 import (
-	"github.com/nlopes/slack"
 	"golend/internal/models/lender"
 	"golend/pkg/slkr"
 	"log"
 	"net/http"
+
+	"github.com/nlopes/slack"
 )
 
 // ************************************
@@ -32,18 +33,18 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	slkr.Initialize(slackBotToken)
 	result, err := slkr.Api.PostEphemeral(s.ChannelID, s.UserID, slack.MsgOptionAttachments(
 		slack.Attachment{
-			CallbackID: "manage."+baseActionSelectCallback,
+			CallbackID: "manage." + baseActionSelectCallback,
 			Actions: []slack.AttachmentAction{
 				{
-					Name: "create_action",
-					Text: "Add Something",
-					Type: "button",
+					Name:  "create_action",
+					Text:  "Add Something",
+					Type:  "button",
 					Value: "create",
 				},
 				{
-					Name: "remove_action",
-					Text: "Remove Something",
-					Type: "button",
+					Name:  "remove_action",
+					Text:  "Remove Something",
+					Type:  "button",
 					Value: "remove",
 				},
 			},
@@ -51,7 +52,6 @@ func Index(w http.ResponseWriter, r *http.Request) {
 
 	_ = result
 	return
-
 
 	//t, err := template.New("test").Parse(view.ManageBaseForm)
 	//if err != nil {

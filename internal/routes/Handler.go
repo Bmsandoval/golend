@@ -2,11 +2,10 @@ package routes
 
 import (
 	"encoding/json"
+	"golend/internal/examples"
 	"strings"
 
 	//"fmt"
-	"github.com/gorilla/mux"
-	"github.com/nlopes/slack"
 	"golend/internal/controllers/database"
 	"golend/internal/controllers/lenders"
 	"golend/internal/controllers/manage"
@@ -14,6 +13,9 @@ import (
 	"golend/pkg/middleware"
 	"log"
 	"net/http"
+
+	"github.com/gorilla/mux"
+	"github.com/nlopes/slack"
 )
 
 func Register() *mux.Router {
@@ -38,6 +40,8 @@ func registerPublicEndpoints() *mux.Router {
 	app := mux.NewRouter()
 	app.Path("/registration/begin").HandlerFunc(registration.EnrollmentUrl)
 	app.Path("/registration/finish").HandlerFunc(registration.CollectAuthTokens)
+	app.Path("/test/structurized").HandlerFunc(examples.TestStructurized)
+	app.Path("/test/templatized").HandlerFunc(examples.TestTemplatized)
 	return app
 }
 
@@ -97,6 +101,6 @@ func dynamicMenus(w http.ResponseWriter, r *http.Request) {
 		log.Fatal(err)
 		return
 	}
-	log.Printf( "%s", s )
+	log.Printf("%s", s)
 
 }

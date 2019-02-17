@@ -2,10 +2,11 @@ package lenders
 
 import (
 	"fmt"
-	"github.com/gorilla/mux"
 	"golend/internal/models/lender"
 	"golend/pkg/db"
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 func ShowAll(_ http.ResponseWriter, r *http.Request) {

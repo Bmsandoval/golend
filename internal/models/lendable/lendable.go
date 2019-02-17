@@ -7,7 +7,7 @@ import (
 
 type Lendable struct {
 	gorm.Model
-	GrouperId     uint `gorm:"index"`
-	Name   string
-	HeldBy         string
+	GrouperId uint `gorm:"index"`
+	Name      string
+	HeldBy    string
 }

@@ -22,8 +22,9 @@ lendr-package () {
 }
 # Bundle, use this command before each lendr-run-test
 lendr-bundle () {
-  #mkdir -p build/internal/views
-  #rsync -avhP --stats --progress internal/views/ build/internal/views/
+  hero -source="/home/thorson/projects/home/go/src/golend/internal/json" -dest="/home/thorson/projects/home/go/src/golend/internal/templates" -extensions=".json"
+  #mkdir -p build/internal/json
+  #rsync -avhP --stats --progress internal/json/ build/internal/json/
   lendr-compile
 }
 

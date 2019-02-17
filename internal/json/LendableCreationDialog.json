@@ -1,0 +1,39 @@
+<%: func LendableCreationDialog(Counts []int, w io.Writer) %>
+{
+  "title":        "What is your thing?",
+  "submit_label": "Submit",
+  "callback_id":  "manage.create_thing",
+  "elements":     [
+    {
+      "type":  "text",
+      "label": "Name",
+      "name":  "thing_name"
+    },
+    {
+      "label":   "Related",
+      "type":    "select",
+      "name":    "relates_to",
+      "options": [
+        <% for _, val := range Counts {%>
+        {
+          "label": "Parent (probably the one you want)",
+          "value": "<%==i val %>"
+        },
+        <% } %>
+      ]
+    },
+    {
+      "label":   "Control Access",
+      "type":    "select",
+      "name":    "control_access",
+      "options": [
+        <% for _, val := range Counts { %>
+        {
+          "label": "Parent (probably the one you want)",
+          "value": "<%==i val %>"
+        },
+        <% } %>
+      ]
+    }
+  ]
+}

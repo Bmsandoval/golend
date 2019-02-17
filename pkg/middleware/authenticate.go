@@ -66,7 +66,7 @@ func IsRequestValid(r *http.Request, slackSigningSecret string) bool {
 	// Slack apparently only hashes the body
 	requestData, _ := ioutil.ReadAll(r.Body)
 	// Put the body back and share with others
-	r.Body= ioutil.NopCloser(bytes.NewBuffer(requestData))
+	r.Body = ioutil.NopCloser(bytes.NewBuffer(requestData))
 
 	signatureBaseString := slackVersion + ":" + slackRequestTimestamp + ":" + string(requestData)
 	// Generate a hash of the request, everything must be in bytes

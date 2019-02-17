@@ -2,17 +2,18 @@ package manage
 
 import (
 	"fmt"
-	"github.com/nlopes/slack"
 	"golend/internal/models/lender"
 	"golend/pkg/slkr"
 	"net/http"
-)
 
+	"github.com/nlopes/slack"
+)
 
 // ************************************
 // Entry point for management commands
 // ************************************
 const baseActionSelectCallback string = "base_action_select"
+
 func BaseActionSelect(requestValues slack.InteractionCallback, w http.ResponseWriter, r *http.Request) {
 	//*************************
 	//Setup slack api
@@ -30,10 +31,10 @@ func BaseActionSelect(requestValues slack.InteractionCallback, w http.ResponseWr
 		requestValues.Actions[0].Value == "create" {
 
 		err := slkr.Api.OpenDialog(requestValues.TriggerID, slack.Dialog{
-			Title: "Creating New Lendable",
+			Title:       "Creating New Lendable",
 			SubmitLabel: "Submit",
-			TriggerID: requestValues.TriggerID,
-			CallbackID: "manage."+lendablesCreateDialogCallback,
+			TriggerID:   requestValues.TriggerID,
+			CallbackID:  "manage." + lendablesCreateDialogCallback,
 			Elements: []slack.DialogElement{
 				slack.TextInputElement{
 					DialogInput: slack.DialogInput{
@@ -45,8 +46,8 @@ func BaseActionSelect(requestValues slack.InteractionCallback, w http.ResponseWr
 				},
 				slack.DialogInputSelect{
 					DialogInput: slack.DialogInput{
-						Type: slack.InputTypeSelect,
-						Name: "groupStatus",
+						Type:  slack.InputTypeSelect,
+						Name:  "groupStatus",
 						Label: "Should this be grouped?",
 					},
 					Options: []slack.DialogSelectOption{
@@ -62,8 +63,8 @@ func BaseActionSelect(requestValues slack.InteractionCallback, w http.ResponseWr
 				},
 				slack.DialogInputSelect{
 					DialogInput: slack.DialogInput{
-						Type: slack.InputTypeSelect,
-						Name: "channelStatus",
+						Type:  slack.InputTypeSelect,
+						Name:  "channelStatus",
 						Label: "Who deserves access?",
 					},
 					Options: []slack.DialogSelectOption{
@@ -86,4 +87,3 @@ func BaseActionSelect(requestValues slack.InteractionCallback, w http.ResponseWr
 	}
 	return
 }
-

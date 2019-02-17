@@ -1,17 +1,18 @@
 package lender
 
 import (
-	_ "github.com/go-sql-driver/mysql" // must be included with gorm
-	"github.com/jinzhu/gorm"
 	"golend/internal/models/grouper"
 	"golend/pkg/db"
+
+	_ "github.com/go-sql-driver/mysql" // must be included with gorm
+	"github.com/jinzhu/gorm"
 	//_ "github.com/kr/pretty"
 )
 
 type Lender struct {
 	gorm.Model
 	TeamId         string `gorm:"unique_index"`
-	Groupers  []grouper.Grouper
+	Groupers       []grouper.Grouper
 	Admins         string
 	AccessToken    string
 	BotAccessToken string
@@ -24,4 +25,3 @@ func GetLender(teamId string) (Lender, error) {
 		First(&lendr)
 	return lendr, result.Error
 }
-

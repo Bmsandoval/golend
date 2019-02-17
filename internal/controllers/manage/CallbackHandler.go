@@ -1,9 +1,10 @@
 package manage
 
 import (
-	"github.com/nlopes/slack"
 	"net/http"
 	"strings"
+
+	"github.com/nlopes/slack"
 )
 
 // ************************************
@@ -17,5 +18,3 @@ func CallbackHandler(callback slack.InteractionCallback, w http.ResponseWriter, 
 	}
 	return
 }
-
-

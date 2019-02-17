@@ -8,8 +8,6 @@ import (
 	"os"
 )
 
-
-
 func EnrollmentUrl(w http.ResponseWriter, r *http.Request) {
 	slackClientID := os.Getenv("SLACK_CLIENT_ID")
 	slackState := lender.CreateProspect(SecureRandomAlphaString)

@@ -1,14 +1,15 @@
 package lender
 
 import (
-	"github.com/jinzhu/gorm"
 	"golend/pkg/db"
 	"log"
+
+	"github.com/jinzhu/gorm"
 )
 
 /**
 Create a new prospect with Id generated as defined by input function
- */
+*/
 func CreateProspect(prospectIdGenerator func(int) string) string {
 	slackState := ""
 	for {
@@ -28,7 +29,7 @@ func CreateProspect(prospectIdGenerator func(int) string) string {
 
 /**
 Remove a prospect, perhaps they cancelled or ignored invite
- */
+*/
 func RemoveProspect(prospectId string) {
 	db.DB.Table("lenders").
 		Scopes(ProspectById(prospectId)).
@@ -37,12 +38,12 @@ func RemoveProspect(prospectId string) {
 
 /**
 After 0Auth flow complete, assign prospective lendee their own lender
- */
+*/
 func ConvertProspect(prospectId string, teamId string, accessToken string, botAccessToken string) {
 	result := db.DB.Table("lenders").
 		Scopes(ProspectById(prospectId)).
 		Updates(map[string]interface{}{
-			"team_id":         teamId,
+			"team_id":          teamId,
 			"access_token":     accessToken,
 			"bot_access_token": botAccessToken})
 
@@ -53,7 +54,7 @@ func ConvertProspect(prospectId string, teamId string, accessToken string, botAc
 
 /**
 Check database for prospective lendee by id
- */
+*/
 func ProspectExists(prospectId string) bool {
 	var lendr = Lender{}
 	result := db.DB.Table("lenders").
@@ -66,10 +67,11 @@ func ProspectExists(prospectId string) bool {
 //*****    QUERY HELPERS    *****
 //*******************************
 // limit query results to prospective lendee's id
-func ProspectById(prospectId string) func (db *gorm.DB) *gorm.DB {
-	return func (db *gorm.DB) *gorm.DB { return db.
-		Where("team_id= ?", prospectId).
-		Where("access_token = ?", "").
-		Where("bot_access_token = ?", "")
+func ProspectById(prospectId string) func(db *gorm.DB) *gorm.DB {
+	return func(db *gorm.DB) *gorm.DB {
+		return db.
+			Where("team_id= ?", prospectId).
+			Where("access_token = ?", "").
+			Where("bot_access_token = ?", "")
 	}
 }

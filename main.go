@@ -27,7 +27,6 @@ func StrEmpty(s string) bool {
 	return true
 }
 
-
 // *************************
 // Get Database Env Variables
 // *************************
@@ -40,10 +39,18 @@ func init() {
 	// *************************
 	// Verify All Env Variables Found
 	// *************************
-	if StrEmpty(username) { panic("missing env variable MYSQL_USER") }
-	if StrEmpty(password) { panic("missing env variable MYSQL_PASSWORD") }
-	if StrEmpty(hostname) { panic("missing env variable MYSQL_HOST") }
-	if StrEmpty(database) { panic("missing env variable MYSQL_DATABASE") }
+	if StrEmpty(username) {
+		panic("missing env variable MYSQL_USER")
+	}
+	if StrEmpty(password) {
+		panic("missing env variable MYSQL_PASSWORD")
+	}
+	if StrEmpty(hostname) {
+		panic("missing env variable MYSQL_HOST")
+	}
+	if StrEmpty(database) {
+		panic("missing env variable MYSQL_DATABASE")
+	}
 }
 
 func main() {
