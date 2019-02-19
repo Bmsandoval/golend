@@ -2,7 +2,7 @@ package registration
 
 import (
 	"crypto/rand"
-	"golend/internal/models/lender"
+	"golend/internal/models"
 	"log"
 	"net/http"
 	"os"
@@ -10,7 +10,7 @@ import (
 
 func EnrollmentUrl(w http.ResponseWriter, r *http.Request) {
 	slackClientID := os.Getenv("SLACK_CLIENT_ID")
-	slackState := lender.CreateProspect(SecureRandomAlphaString)
+	slackState := models.CreateProspect(SecureRandomAlphaString)
 	url := "https://slack.com/oauth/authorize?" +
 		"client_id=" + slackClientID + "&" +
 		"scope=chat:write:bot bot commands" + "&" +

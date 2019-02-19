@@ -1,4 +1,4 @@
-package lender
+package models
 
 import (
 	"golend/pkg/db"
@@ -39,7 +39,7 @@ func RemoveProspect(prospectId string) {
 /**
 After 0Auth flow complete, assign prospective lendee their own lender
 */
-func ConvertProspect(prospectId string, teamId string, accessToken string, botAccessToken string) {
+func AssignProspectToLender(prospectId string, teamId string, accessToken string, botAccessToken string) {
 	result := db.DB.Table("lenders").
 		Scopes(ProspectById(prospectId)).
 		Updates(map[string]interface{}{

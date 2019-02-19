@@ -2,7 +2,6 @@ package routes
 
 import (
 	"encoding/json"
-	"golend/internal/examples"
 	"strings"
 
 	//"fmt"
@@ -40,8 +39,8 @@ func registerPublicEndpoints() *mux.Router {
 	app := mux.NewRouter()
 	app.Path("/registration/begin").HandlerFunc(registration.EnrollmentUrl)
 	app.Path("/registration/finish").HandlerFunc(registration.CollectAuthTokens)
-	app.Path("/test/structurized").HandlerFunc(examples.TestStructurized)
-	app.Path("/test/templatized").HandlerFunc(examples.TestTemplatized)
+	//app.Path("/test/structurized").HandlerFunc(examples.TestStructurized)
+	//app.Path("/test/templatized").HandlerFunc(examples.TestTemplatized)
 	return app
 }
 

@@ -7,18 +7,18 @@ import (
 	"net/http"
 	"os"
 
-	"golend/internal/models/lender"
+	"golend/internal/models"
 )
 
 func CollectAuthTokens(_ http.ResponseWriter, r *http.Request) {
 	state := r.FormValue("state")
 	err := r.FormValue("error")
 	if err == "access_denied" {
-		lender.RemoveProspect(state)
+		models.RemoveProspect(state)
 		return
 	}
 	tempCode := r.FormValue("code")
-	lendrExists := lender.ProspectExists(state)
+	lendrExists := models.ProspectExists(state)
 	if lendrExists {
 		slackClientID := os.Getenv("SLACK_CLIENT_ID")
 		slackClientSecret := os.Getenv("SLACK_CLIENT_SECRET")
@@ -42,7 +42,7 @@ func CollectAuthTokens(_ http.ResponseWriter, r *http.Request) {
 			if err != nil {
 				log.Fatal(err)
 			} else {
-				lender.ConvertProspect(state, t.TeamId, t.AccessToken, t.Bot.BotAccessToken)
+				models.AssignProspectToLender(state, t.TeamId, t.AccessToken, t.Bot.BotAccessToken)
 			}
 		}
 	}

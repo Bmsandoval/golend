@@ -14,7 +14,7 @@ func CallbackHandler(callback slack.InteractionCallback, w http.ResponseWriter, 
 	if strings.HasSuffix(callback.CallbackID, "."+baseActionSelectCallback) {
 		BaseActionSelect(callback, w, r)
 	} else if strings.HasSuffix(callback.CallbackID, "."+lendablesCreateDialogCallback) {
-		LendablesCreateDialog(callback, w, r)
+		CreateNewLendable(callback, w, r)
 	}
 	return
 }

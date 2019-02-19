@@ -1,7 +1,7 @@
 package manage
 
 import (
-	"golend/internal/models/lender"
+	"golend/internal/models"
 	"golend/pkg/slkr"
 	"log"
 	"net/http"
@@ -24,7 +24,7 @@ func Index(w http.ResponseWriter, r *http.Request) {
 	//	return
 	//}
 
-	lendr, _ := lender.GetLender(s.TeamID)
+	lendr, _ := models.FindLenderByTeam(s.TeamID)
 
 	//*************************
 	//Setup slack api

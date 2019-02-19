@@ -1,24 +1,22 @@
 package database
 
 import (
-	"golend/internal/models/grouper"
-	"golend/internal/models/lender"
+	"golend/internal/models"
 	"golend/pkg/db"
 	"net/http"
 
 	//_ "github.com/go-sql-driver/mysql"
 
-	"golend/internal/models/lendable"
 )
 
 func Migrate(_ http.ResponseWriter, _ *http.Request) {
-	db.DB.Debug().AutoMigrate(&lender.Lender{})
-	db.DB.Debug().AutoMigrate(&grouper.Grouper{})
-	db.DB.Debug().AutoMigrate(&lendable.Lendable{})
+	db.DB.Debug().AutoMigrate(&models.Lender{})
+	db.DB.Debug().AutoMigrate(&models.Grouper{})
+	db.DB.Debug().AutoMigrate(&models.Lendable{})
 }
 
 func Revert(_ http.ResponseWriter, _ *http.Request) {
-	db.DB.Debug().DropTableIfExists(&lendable.Lendable{})
-	db.DB.Debug().DropTableIfExists(&grouper.Grouper{})
-	db.DB.Debug().DropTableIfExists(&lender.Lender{})
+	db.DB.Debug().DropTableIfExists(&models.Lendable{})
+	db.DB.Debug().DropTableIfExists(&models.Grouper{})
+	db.DB.Debug().DropTableIfExists(&models.Lender{})
 }

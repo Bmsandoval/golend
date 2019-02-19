@@ -22,9 +22,7 @@ lendr-package () {
 }
 # Bundle, use this command before each lendr-run-test
 lendr-bundle () {
-  hero -source="/home/thorson/projects/home/go/src/golend/internal/json" -dest="/home/thorson/projects/home/go/src/golend/internal/templates" -extensions=".json"
-  #mkdir -p build/internal/json
-  #rsync -avhP --stats --progress internal/json/ build/internal/json/
+    go generate
   lendr-compile
 }
 
