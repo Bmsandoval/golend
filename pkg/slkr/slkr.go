@@ -20,7 +20,6 @@ func SendError(channelId string, userId string, msg string) {
 
 	_ = result
 	return
-
 }
 
 func hash(s string) uint32 {

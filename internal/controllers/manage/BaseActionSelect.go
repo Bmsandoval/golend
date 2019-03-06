@@ -19,6 +19,8 @@ func BaseActionSelect(requestValues slack.InteractionCallback, w http.ResponseWr
 	var dialog slack.Dialog
 	var err error
 	teamId := requestValues.Team.ID
+	channelId := requestValues.Channel.ID
+	userId := requestValues.User.ID
 	//*************************
 	//Setup slack api
 	//*************************
@@ -34,9 +36,9 @@ func BaseActionSelect(requestValues slack.InteractionCallback, w http.ResponseWr
 	//*************************
 	// Only allow Admins into management section
 	//*************************
-	adminExists, err := lendr.HasAdmin(requestValues.User.ID)
+	adminExists, err := lendr.HasAdmin(userId)
 	if  ! adminExists{
-		slkr.SendError(requestValues.Channel.ID, requestValues.User.ID, err.Error())
+		slkr.SendError(channelId, userId, err.Error())
 		w.WriteHeader(http.StatusForbidden)
 		return
 	}
@@ -45,9 +47,9 @@ func BaseActionSelect(requestValues slack.InteractionCallback, w http.ResponseWr
 	// SWITCH: Callbacks
 	// selects proper slack.Dialog
 	//*************************
+	groupers := models.FindGroupersByLender(lendr.ID)
 	switch requestValues.Actions[0].Value {
 	case "create":
-		groupers := models.FindGroupersByLender(lendr.ID)
 		var selectables []slack.DialogSelectOption
 		if len(groupers) == 0 {
 			selectables = []slack.DialogSelectOption {
@@ -57,23 +59,29 @@ func BaseActionSelect(requestValues slack.InteractionCallback, w http.ResponseWr
 				},
 			}
 		} else { // len(groupers) > 0
-			selectables = make([]slack.DialogSelectOption, len(groupers))
-			for i, grouper := range groupers {
-				selectables[i] = slack.DialogSelectOption{
-					Label: grouper.Name,
-					Value: fmt.Sprint(grouper.ID),
-				}
-			}
+			selectables = models.GrouperToSelectables(groupers)
 		}
-		dialog = LendablesCreationDialog(requestValues.TriggerID, lendr.GetHash(), selectables)
+		dialog = LendablesCreationView(requestValues.TriggerID, lendr.GetHash(), selectables)
 
 	case "update":
+		var selectables []slack.DialogSelectOption
+		if len(groupers) == 0 {
+			slkr.Api.PostEphemeral(channelId, userId, ManagementSuggestCreateView())
+			return
+		} else {
+			selectables = models.GrouperToSelectables(groupers)
+			_ = selectables
+		}
 		// TODO - handle update requests
 		w.WriteHeader(http.StatusNotImplemented)
 		return
 	case "delete":
 		// TODO - handle delete requests
 		w.WriteHeader(http.StatusNotImplemented)
+		return
+	case "no_action":
+		// They just didn't want to do anything. Not an error
+		w.WriteHeader(http.StatusNoContent)
 		return
 	}
 
@@ -87,7 +95,7 @@ func BaseActionSelect(requestValues slack.InteractionCallback, w http.ResponseWr
 	return
 }
 
-func LendablesCreationDialog(triggerId string, state string, selectables []slack.DialogSelectOption) slack.Dialog {
+func LendablesCreationView(triggerId string, state string, selectables []slack.DialogSelectOption) slack.Dialog {
 	return slack.Dialog{
 		Title:       "Creating New Lendable",
 		SubmitLabel: "Submit",
@@ -129,4 +137,26 @@ func LendablesCreationDialog(triggerId string, state string, selectables []slack
 			},
 		},
 	}
+}
+
+func ManagementSuggestCreateView () slack.MsgOption{
+	return slack.MsgOptionAttachments(
+		slack.Attachment{
+			Text: "Weird, nothing there. Wanna make something?",
+			CallbackID: "manage." + baseActionSelectCallback,
+			Actions: []slack.AttachmentAction{
+				{
+					Name:  "create_action",
+					Text:  "Add Something",
+					Type:  "button",
+					Value: "create",
+				},
+				{
+					Name:  "no_action",
+					Text:  "Nope.",
+					Type:  "button",
+					Value: "no_action",
+				},
+			},
+		})
 }

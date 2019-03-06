@@ -1,8 +1,10 @@
 package models
 
 import (
+	"fmt"
 	_ "github.com/go-sql-driver/mysql" // must be included with gorm
 	"github.com/jinzhu/gorm"
+	"github.com/nlopes/slack"
 	"golend/pkg/db"
 )
 
@@ -15,6 +17,17 @@ type Grouper struct {
 	AvailableLendables uint
 	// Relation only, no column in DB
 	Lendables          []Lendable
+}
+
+func GrouperToSelectables(groupers []Grouper) []slack.DialogSelectOption {
+	var selectables = make([]slack.DialogSelectOption, len(groupers))
+	for i, grouper := range groupers {
+		selectables[i] = slack.DialogSelectOption{
+			Label: grouper.Name,
+			Value: fmt.Sprint(grouper.ID),
+		}
+	}
+	return selectables
 }
 
 func MakeNewGrouper (lendrId uint, name string) *Grouper {

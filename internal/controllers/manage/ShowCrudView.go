@@ -8,9 +8,8 @@ import (
 	"strconv"
 )
 
-const lendablesCreateDialogCallback string = "lendables_create_dialog"
-
-func CreateNewLendable(requestValues slack.InteractionCallback, w http.ResponseWriter, r *http.Request) {
+const lendablesCreateCallback string = "create"
+func lendablesCreateView(requestValues slack.InteractionCallback, w http.ResponseWriter, r *http.Request) {
 	hashState := requestValues.State
 	lendr, err := models.SearchLendersAsAdmin(requestValues.Team.ID, requestValues.User.ID)
 	if err != nil {

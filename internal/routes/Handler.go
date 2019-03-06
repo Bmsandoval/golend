@@ -62,7 +62,7 @@ func registerPrivateEndpoints() *mux.Router {
 	// MANAGE LENDABLES
 	// *******************
 	app.Path("/manage/index").
-		HandlerFunc(manage.Index)
+		HandlerFunc(manage.SlashIndex)
 	// *******************
 	// CALLBACK ROUTES
 	// *******************
